@@ -1,0 +1,8 @@
+📁 MijnDataProject/
+├── data/
+│   ├── manifest.txt
+│   ├── artwork1.png
+│   └── insights.md
+├── LICENSE
+├── README.md
+└── .github/workflows/data-control.yml
