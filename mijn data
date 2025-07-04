@@ -6,3 +6,31 @@
 ├── LICENSE
 ├── README.md
 └── .github/workflows/data-control.yml
+
+name: Data Sovereignty
+
+on:
+  push:
+    paths:
+      - 'data/**'
+  workflow_dispatch:
+
+jobs:
+  track-and-hash:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Generate SHA256 hashes of data
+        run: |
+          find data/ -type f -exec sha256sum {} \; > data_hashes.txt
+
+      - name: Commit hashlog
+        run: |
+          git config user.name "Fleur's Data Guardian"
+          git config user.email "fleur@example.com"
+          git add data_hashes.txt
+          git commit -m "Update data hash registry"
+          git push
